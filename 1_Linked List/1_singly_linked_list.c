@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-
 struct node{
     int data;
     struct node *link;
@@ -13,6 +12,8 @@ void Display();
 void Insert_Random();
 void Delete_Begin();
 void Delete_Last();
+void Delete_Random();
+void Search();
 
 int main()
 {
@@ -25,9 +26,11 @@ int main()
         printf("3. Inserting Node at random position\n");
         printf("4. Delete Node form begining\n");
         printf("5. Delete Node from last\n");
+        printf("6. Delete Node from random position\n");
+        printf("7. Search for an element\n");
         printf("8. Display Data\n");
         printf("9. Exit\n");
-        printf("Enter yout choise : ");
+        printf("Enter your choice : ");
         scanf("%d",&option);
 
         switch (option)
@@ -47,6 +50,12 @@ int main()
         case 5:
             Delete_Last();
             break;
+        case 6:
+            Delete_Random ();
+            break;
+        case 7:
+            Search();
+            break;
         case 8:
             Display();
             break;
@@ -60,8 +69,6 @@ void Insert_Begining(){
     int n, item;
     struct node *ptr;
     printf("Inserting Node in begining :");
-    
-    
         ptr = (struct node *)malloc(sizeof(struct node));
         if(ptr == NULL){
             printf("\nOverflow\n");
@@ -115,10 +122,10 @@ void Insert_Random()
     struct node *ptr, *temp;
     printf("Enter Data value : ");
     scanf("%d",&item);
-    ptr->data = item;
     printf("Enter the position : ");
     scanf("%d",&location);
     ptr = (struct node *)malloc(sizeof(struct node));
+    ptr->data = item;
     if(ptr == NULL){
         printf("\nOverflow");
     }   
@@ -179,10 +186,69 @@ void Delete_Last(){
     }
 }
 
+void Delete_Random(){
+    struct node *ptr, *ptr1;
+    int position,i;
+    printf("\n\nEnter the position of the node to delete : ");
+    scanf("%d",&position);
+    ptr = head;
+    while(position != 1){
+        ptr1 = ptr;
+        ptr = ptr->link;
+        if(ptr == NULL){
+            printf("\nNode Can't be deleted");
+            return;
+        }
+        // temp = temp->link;
+        position--;
+    }
+    // for(i=0;i<position;i++)
+    // {
+    //     ptr1 = ptr;
+    //     ptr = ptr->link;
+    //     if(ptr == NULL){
+    //         printf("\nNode Can't be deleted");
+    //         return;
+    //     }
+    // }
+    ptr1->link = ptr->link;
+    free(ptr);
+    printf("Node Deleted");
+}
+
+void Search(){
+    printf("\n\nSearching element in list : ");
+    struct node *ptr;
+    int value, flag=1,i=0;
+    ptr = head;
+    if(ptr == NULL){
+        printf("\nEnpty List");
+    }
+    else{
+        printf("\nEnter key to search : ");
+        scanf("%d",&value);
+        while(ptr != NULL){
+            if(ptr->data == value){
+                printf("Item found at position : %d",i+1);
+                flag = 0;
+                // count = 1;
+            }
+            // else{
+            //     flag = 1;
+            // }
+            i++;
+            ptr = ptr->link;
+        }
+        if(flag != 0)
+        {
+            printf("Item not found");
+        }
+    }
+}
 void Display(){
     struct node *ptr;
     ptr = head;
-    printf("\n\nDisplaying Data from Linked List :\n\n");
+    printf("\n\nDisplaying Data from Linked List :\n");
     if(ptr == NULL)
         printf("\nOverflow");
     else{
