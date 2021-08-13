@@ -19,18 +19,18 @@ void Delete();
 int main()
 {
     int option=0;
-    while(option != 9){
+    while(option != 10){
         printf("\n\n=================================");
         printf("\nChoose the following option\n");
         printf("1.  Inserting Node at begining\n");
         printf("2.  Inserting Node at last\n");
         printf("3.  Inserting Node at random position\n");
-        printf("4.  Delete Node form begining\n");
-        printf("5.  Delete Node from last\n");
-        printf("6.  Delete Node from random position\n");
-        printf("7.  Search for an element\n");
-        printf("8.  Display Data\n");
-        printf("9.  Delete Node\n");
+        printf("4.  Delete Node\n");
+        printf("5.  Delete Node form begining\n");
+        printf("6.  Delete Node from last\n");
+        printf("7.  Delete Node from random position\n");
+        printf("8.  Search for an element\n");
+        printf("9.  Display Data\n");
         printf("10. Exit\n");
         printf("Enter your choice : ");
         scanf("%d",&option);
@@ -47,24 +47,29 @@ int main()
             Insert_Random();
             break;
         case 4:
-            Delete_Begin();
+            Delete();
             break;
         case 5:
-            Delete_Last();
+            Delete_Begin();
             break;
         case 6:
-            Delete_Random ();
+            Delete_Last();
             break;
         case 7:
-            Search();
+            Delete_Random ();
             break;
         case 8:
-            Display();
+            Search();
             break;
         case 9:
             Display();
             break;
+        case 10:
+            printf("\nExiting.....!");
+            exit(0);
+            break;
         default:
+            printf("\n\nWrong Option");
             break;
         }
     }
@@ -265,5 +270,19 @@ void Display(){
 }
 
 void Delete(){
-    
+    struct node *ptr, *temp;
+    int key,i;
+    printf("\n\nDeleting Node : ");
+    printf("\nEnter key to delete : ");
+    scanf("%d",&key);
+    temp = head;
+    while(temp->data != key){
+        ptr = temp;
+        temp = temp->link;
+    }
+    ptr->link = temp->link;
+    // printf("%d",ptr->data);
+    free(temp);
+    printf("Node Deleted..!");
+    // void Display();
 }
