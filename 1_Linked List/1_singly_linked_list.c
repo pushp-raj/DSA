@@ -14,6 +14,7 @@ void Delete_Begin();
 void Delete_Last();
 void Delete_Random();
 void Search();
+void Delete();
 
 int main()
 {
@@ -21,15 +22,16 @@ int main()
     while(option != 9){
         printf("\n\n=================================");
         printf("\nChoose the following option\n");
-        printf("1. Inserting Node at begining\n");
-        printf("2. Inserting Node at last\n");
-        printf("3. Inserting Node at random position\n");
-        printf("4. Delete Node form begining\n");
-        printf("5. Delete Node from last\n");
-        printf("6. Delete Node from random position\n");
-        printf("7. Search for an element\n");
-        printf("8. Display Data\n");
-        printf("9. Exit\n");
+        printf("1.  Inserting Node at begining\n");
+        printf("2.  Inserting Node at last\n");
+        printf("3.  Inserting Node at random position\n");
+        printf("4.  Delete Node form begining\n");
+        printf("5.  Delete Node from last\n");
+        printf("6.  Delete Node from random position\n");
+        printf("7.  Search for an element\n");
+        printf("8.  Display Data\n");
+        printf("9.  Delete Node\n");
+        printf("10. Exit\n");
         printf("Enter your choice : ");
         scanf("%d",&option);
 
@@ -57,6 +59,9 @@ int main()
             Search();
             break;
         case 8:
+            Display();
+            break;
+        case 9:
             Display();
             break;
         default:
@@ -257,4 +262,8 @@ void Display(){
             ptr = ptr->link;
         }
     }
+}
+
+void Delete(){
+    
 }
