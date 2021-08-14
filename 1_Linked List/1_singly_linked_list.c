@@ -56,7 +56,7 @@ int main()
             Delete_Last();
             break;
         case 7:
-            Delete_Random ();
+            Delete_Random();
             break;
         case 8:
             Search();
@@ -140,7 +140,6 @@ void Insert_Random()
         printf("\nOverflow");
     }   
     else{
-        
         temp = head;
         location --;
         while(location != 1){
@@ -229,7 +228,7 @@ void Delete_Random(){
 void Search(){
     printf("\n\nSearching element in list : ");
     struct node *ptr;
-    int value, flag=1,i=0;
+    int value, flag=1,i=1;
     ptr = head;
     if(ptr == NULL){
         printf("\nEnpty List");
@@ -239,7 +238,7 @@ void Search(){
         scanf("%d",&value);
         while(ptr != NULL){
             if(ptr->data == value){
-                printf("Item found at position : %d",i+1);
+                printf("Item found at position : %d",i);
                 flag = 0;
                 // count = 1;
             }
