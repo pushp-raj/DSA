@@ -6,15 +6,16 @@ struct node{
     struct node *link;
 } *head;
 
-void Insert_Begining();
+void Insert_Beginning();
 void Insert_Last();
-void Display();
 void Insert_Random();
+void Delete_Key();
 void Delete_Begin();
 void Delete_Last();
 void Delete_Random();
 void Search();
-void Delete();
+void Display();
+
 
 int main()
 {
@@ -38,7 +39,7 @@ int main()
         switch (option)
         {
         case 1:
-            Insert_Begining();
+            Insert_Beginning();
             break;
         case 2:
             Insert_Last();
@@ -47,7 +48,7 @@ int main()
             Insert_Random();
             break;
         case 4:
-            Delete();
+            Delete_Key();
             break;
         case 5:
             Delete_Begin();
@@ -75,53 +76,62 @@ int main()
     }
 }
 
-void Insert_Begining(){
+void Insert_Beginning(){
     int item;
-    struct node *ptr;
-    printf("Inserting Node in begining :");
-        ptr = (struct node *)malloc(sizeof(struct node));
-        if(ptr == NULL){
-            printf("\nOverflow\n");
+    printf("\n\nInserting Node in beginning : ");
+    struct node *ptr, *temp;
+    ptr = (struct node *)malloc(sizeof(struct node));
+    if(ptr == NULL)
+        printf("\nOverflow");
+    else{
+        printf("\nEnter Data Value : ");
+        scanf("%d",&item);
+        ptr->data = item;
+        if(head == NULL){
+            head = ptr;
+            ptr->link = head;
         }
         else{
-            printf("\nEnter data value : ");
-            scanf("%d",&item);
-            ptr->data = item;
+            temp = head;
+            while (temp->link != head)
+                temp = temp->link;
             ptr->link = head;
+            temp->link = ptr;
             head = ptr;
-            printf("Node Inserted");
         }
+        printf("Node Inserted...!"); 
+    }
 }
 
 void Insert_Last(){
-    printf("\n\nInserting Node at last :");
-    int i,n;
-    printf("\nHow many node to be inserted : ");
+    printf("\n\nInserting Node at last : ");
+    int n;
+    printf("\nHow many node to insert : ");
     scanf("%d",&n);
-    for(i=0;i<n;i++){
-        struct node *temp, *ptr;
+    for(int i=0;i<n;i++){
+        struct node *ptr, *temp;
         int item;
         ptr = (struct node *)malloc(sizeof(struct node));
-        if(ptr == NULL)
-            printf("\noverflow");
+        if(ptr == NULL) 
+            printf("\nOverflow");
         else{
-            printf("\nEnter data value : ");
+            printf("\nEnter Data Value : ");
             scanf("%d",&item);
             ptr->data = item;
-            ptr->link = NULL;
             if(head == NULL){
                 head = ptr;
-                printf("Node Inserted");
+                ptr->link = head;
             }
             else{
                 temp = head;
-                while(temp->link != NULL){
+                while (temp->link != head){
                     temp = temp->link;
                 }
                 temp->link = ptr;
-                printf("Node Inserted");
+                ptr->link = head;
             }
         }
+        printf("Node Inserted...!");
     }
 }
 
@@ -146,129 +156,13 @@ void Insert_Random()
             temp = temp->link;
             location--;
         }
-        // printf("\n1 here");
-        // for(i=0;i<location;i++){
-        //     temp = temp->link;
-        //     if(temp = NULL){
-        //         printf("\nNode Can't be Inserted"); 
-        //         return;
-        //     }
-        // }
         ptr->link = temp->link;
         temp->link = ptr;
         printf("\nNode Inserted");
     }
 }
 
-void Delete_Begin(){
-    struct node *temp;
-    printf("\n\nDeleting Node from begining :");
-    if(head == NULL)
-        printf("\nList is empty");
-    else{
-        temp = head;
-        head = temp->link;
-        free(temp);
-        printf("\nNode deleted from begining...!");
-    }
-}
-
-void Delete_Last(){
-    printf("\n\nDeleting Node from last :");
-    struct node *ptr, *ptr1;
-    if(head == NULL)
-        printf("\nList is EMPTY.. !");
-    else if(head->link == NULL){
-        free(head);
-        head = NULL;
-        printf("\nOnly Node of the Linked List is deleted .. !");
-    }
-    else{
-        ptr = head;
-        while(ptr->link != NULL){
-            ptr1 = ptr;
-            ptr = ptr->link;
-        }
-        ptr1->link = NULL;
-        free(ptr);
-        printf("\nLast Node deleted from the list.. !");
-    }
-}
-
-void Delete_Random(){
-    struct node *ptr, *ptr1;
-    int position,i;
-    printf("\n\nEnter the position of the node to delete : ");
-    scanf("%d",&position);
-    ptr = head;
-    while(position != 1){
-        ptr1 = ptr;
-        ptr = ptr->link;
-        if(ptr == NULL){
-            printf("\nNode Can't be deleted");
-            return;
-        }
-        // temp = temp->link;
-        position--;
-    }
-    // for(i=0;i<position;i++)
-    // {
-    //     ptr1 = ptr;
-    //     ptr = ptr->link;
-    //     if(ptr == NULL){
-    //         printf("\nNode Can't be deleted");
-    //         return;
-    //     }
-    // }
-    ptr1->link = ptr->link;
-    free(ptr);
-    printf("Node Deleted");
-}
-
-void Search(){
-    printf("\n\nSearching element in list : ");
-    struct node *ptr;
-    int value, flag=1,i=1;
-    ptr = head;
-    if(ptr == NULL){
-        printf("\nEnpty List");
-    }
-    else{
-        printf("\nEnter key to search : ");
-        scanf("%d",&value);
-        while(ptr != NULL){
-            if(ptr->data == value){
-                printf("Item found at position : %d",i);
-                flag = 0;
-                // count = 1;
-            }
-            // else{
-            //     flag = 1;
-            // }
-            i++;
-            ptr = ptr->link;
-        }
-        if(flag != 0)
-        {
-            printf("Item not found");
-        }
-    }
-}
-void Display(){
-    struct node *ptr;
-    ptr = head;
-    printf("\n\nDisplaying Data from Linked List :\n");
-    if(ptr == NULL)
-        printf("\nOverflow");
-    else{
-        while(ptr != NULL){
-            printf("%d ",ptr->data);
-            ptr = ptr->link;
-        }
-    }
-}
-
-void Delete(){
+void Delete_Key(){
     struct node *ptr, *temp;
     int key,i;
     printf("\n\nDeleting Node : ");
@@ -284,4 +178,114 @@ void Delete(){
     free(temp);
     printf("Node Deleted..!");
     // void Display();
+}
+
+void Delete_Begin(){
+    struct node *temp;
+    printf("\n\nDeleting Node from beginning : ");
+    if(head == NULL)
+        printf("\nUnderflow");
+    else if(head->link == head){
+        free(head);
+        head = NULL;
+        printf("\nOnly node deleted...!");
+    }
+    else{
+        temp = head;
+        while (temp->link != head){
+            temp = temp->link;
+        }
+        temp->link = head->link;
+        free(head);
+        head = temp->link;
+        printf("\nNode Deleted...!");
+    }
+}
+
+void Delete_Last(){
+    printf("\n\nDeleting node from last : ");
+    struct node *temp, *ptr;
+    if(head == NULL)
+        printf("\nUnderflow");
+    else if(head->link == head){
+        free(head);
+        head = NULL;
+        printf("\nOnly Node deleted...!");
+    }
+    else{
+        ptr = head;
+        while(ptr->link != head){
+            temp = ptr;
+            ptr = ptr->link;
+        }
+        temp->link = head;
+        free(ptr);
+        printf("\nNode Deleted...!");
+    }
+}
+
+void Delete_Random(){
+    struct node *ptr, *temp;
+    int position;
+    printf("\n\nDeleting Node of random position : ");
+    printf("\nEnter position : ");
+    scanf("%d",&position);
+    ptr = head;
+    while(position != 1){
+        temp = ptr;
+        ptr = ptr->link;
+        if(ptr == NULL){
+            printf("Node Can't be deleted...!");
+            return;
+        }
+        position --;
+    }
+    temp->link = ptr->link;
+    free(ptr);
+    printf("Node Deleted...!");
+}
+
+void Search(){
+    printf("\n\nSearch position of key : ");
+    struct node *temp;
+    int key, flag = 0, i=1;
+    temp = head;
+    if(temp == NULL)   
+        printf("\nEnpty List");
+    else{
+        printf("\nEnter key : ");
+        scanf("%d",&key);
+        if(temp->data == key){
+            printf("Item found at position : %d",i);
+            flag = 0;
+        }
+        else{
+            while(temp->link != head){
+                if(temp->data == key){
+                    printf("Item found at location : %d",i);
+                    flag = 0;
+                    break;
+                }
+                i++;
+                temp = temp->link;
+            }
+        }
+    }
+    if(flag != 0)
+        printf("Item not found...!");
+}
+
+void Display(){
+    struct node *ptr;
+    ptr = head;
+    if(head == NULL)
+        printf("\n\nEmpty list");
+    else{
+        printf("\n\nDisplaying element : \n");
+        while (ptr->link != head){
+            printf("%d ",ptr->data);
+            ptr = ptr->link;
+        }
+        printf("%d",ptr->data);
+    }
 }
