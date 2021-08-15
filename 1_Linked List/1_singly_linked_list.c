@@ -16,7 +16,7 @@ void Delete_Random();
 void Search();
 void Delete();
 
-int main()
+int main() 
 {
     int option=0;
     while(option != 10){
