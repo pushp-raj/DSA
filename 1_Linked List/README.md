@@ -1,4 +1,4 @@
-SINGLY LINKED LIST      
+SINGLY LINKED LIST
 
 A Menu drived program to :  
 1. Insert Node at begining  
